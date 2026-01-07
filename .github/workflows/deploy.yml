@@ -16,7 +16,7 @@ jobs:
       - name: Test secret
   run: |
     if [ -z "${{ secrets.VPS_SSH_KEY }}" ]; then
-      echo "❌ Secret VPS_SSH_KEY is empty!"
+      echo "❌ Secret VPS_SSH_KEY is emptyy!"
       exit 1
     else
       echo "✅ Secret VPS_SSH_KEY is loaded"
