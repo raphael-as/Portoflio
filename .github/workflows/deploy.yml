@@ -34,7 +34,6 @@ jobs:
             git pull origin main
             yarn install
             yarn build
-            # Vérifie si l'app existe déjà dans PM2
             if pm2 list | grep -q raphael-portfolio; then
               pm2 reload raphael-portfolio
             else
