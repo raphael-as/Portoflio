@@ -1,28 +1,43 @@
-- name: Deploy to VPS
-  uses: appleboy/ssh-action@v0.1.6
-  with:
-    host: ${{ secrets.VPS_HOST }}
-    username: ${{ secrets.VPS_USER }}
-    key: ${{ secrets.VPS_SSH_KEY }}
-    script: |
-      cd /home/abi-saad-raphael/htdocs/raphael.abi-saad.fr
+name: Deploy Portfolio to VPS
 
-      git config --global --add safe.directory /home/abi-saad-raphael/htdocs/raphael.abi-saad.fr
+on:
+  push:
+    branches:
+      - main
 
-      git reset --hard
-      git pull origin main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-      export NVM_DIR="$HOME/.nvm"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-      export PATH="$HOME/.yarn/bin:$PATH"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      yarn install
-      yarn build
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /home/abi-saad-raphael/htdocs/raphael.abi-saad.fr
 
-      if pm2 list | grep -q raphael-portfolio; then
-        pm2 reload raphael-portfolio
-      else
-        pm2 start yarn --name "raphael-portfolio" -- start
-      fi
+            git config --global --add safe.directory /home/abi-saad-raphael/htdocs/raphael.abi-saad.fr
 
-      pm2 save
+            git reset --hard
+            git pull origin main
+
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            export PATH="$HOME/.yarn/bin:$PATH"
+
+            yarn install
+            yarn build
+
+            if pm2 list | grep -q raphael-portfolio; then
+              pm2 reload raphael-portfolio
+            else
+              pm2 start yarn --name "raphael-portfolio" -- start
+            fi
+
+            pm2 save
