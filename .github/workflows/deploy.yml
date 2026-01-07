@@ -25,5 +25,9 @@ jobs:
             git pull origin main
             yarn install
             yarn build
-            pm2 reload raphael-portfolio
+             if pm2 list | grep -q raphael-portfolio; then
+              pm2 reload raphael-portfolio
+            else
+              pm2 start yarn --name "raphael-portfolio" -- start
+            fi
             pm2 save
