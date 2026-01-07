@@ -61,3 +61,15 @@ img{
       overflow-x: hidden;
     }
 }
+
+/* état initial */
+.loader-container {
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+/* quand React est prêt */
+body.app-loaded .loader-container {
+  opacity: 0;
+  pointer-events: none;
+}

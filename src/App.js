@@ -1,30 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import { ThemeContext } from './contexts/ThemeContext';
-import { Main } from './pages'
-import { BackToTop, CursorFollow } from './components'
-import ScrollToTop from './utils/ScrollToTop'
+import { Main } from './pages';
+import { BackToTop, CursorFollow } from './components';
+import ScrollToTop from './utils/ScrollToTop';
 
-import './App.css'
+import './App.css';
 
 function App() {
-
   const { theme } = useContext(ThemeContext);
 
- // console.log = console.warn = console.error = () => {};
+  useEffect(() => {
+    document.body.classList.add('app-loaded');
+  }, []);
 
   return (
-    <div className="app">
+    <div className={`app ${theme}`}>
       <Router>
-        <CursorFollow/>
-        <ScrollToTop/>
+        <CursorFollow />
+        <ScrollToTop />
+
         <Switch>
           <Route path="/" exact component={Main} />
-
           <Redirect to="/" />
         </Switch>
       </Router>
+
       <BackToTop />
     </div>
   );
