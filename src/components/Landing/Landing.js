@@ -200,7 +200,7 @@ function Landing() {
         {headerData.resumePdf && (
             <a
                 href={headerData.resumePdf}
-                download='resume'
+                download='raphael-abi-saad'
                 target='_blank'
                 rel='noreferrer'
             >
