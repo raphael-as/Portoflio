@@ -35,7 +35,7 @@ export const projectsData = [
         projectDesc: "A custom website project focused on clean design, structure, and responsive layout for a personal brand.",
         tags: ["HTML", "CSS", "JavaScript"],
         code: "https://github.com/raphael-as/suzanneKhoury",
-        demo: "https://raphael.is-a.dev/suzanneKhoury/",
+        demo: "https://raphael-as.github.io/suzanneKhoury/",
         image: sample
     },
     {
